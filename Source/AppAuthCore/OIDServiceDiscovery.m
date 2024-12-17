@@ -91,8 +91,12 @@ static NSString *const kOPTosURIKey = @"op_tos_uri";
 - (nullable instancetype)initWithJSONData:(NSData *)serviceDiscoveryJSONData
                                     error:(NSError **_Nullable)error {
   NSError *jsonError;
+
+  NSLog(@"Discovery JSON: %@", [[NSString alloc] initWithData:serviceDiscoveryJSONData encoding:NSUTF8StringEncoding]);
+
   NSDictionary *json =
       [NSJSONSerialization JSONObjectWithData:serviceDiscoveryJSONData options:0 error:&jsonError];
+
   if (!json || jsonError) {
     *error = [OIDErrorUtilities errorWithCode:OIDErrorCodeJSONDeserializationError
                               underlyingError:jsonError

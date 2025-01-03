@@ -110,6 +110,13 @@ NS_ASSUME_NONNULL_BEGIN
     return components.URL;
 }
 
++ (NSString *)normalizePath:(NSString *)path {
+    if (path.length == 0 || [path hasSuffix:@"/"]) {
+        return path;
+    }
+    return [path stringByAppendingString:@"/"]; // Add trailing slash
+}
+
 /*! @brief Does the redirection URL equal another URL down to the path component?
     @param URL The first redirect URI to compare.
     @param redirectionURL The second redirect URI to compare.
@@ -118,7 +125,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)URL:(NSURL *)URL matchesRedirectionURL:(NSURL *)redirectionURL {
   NSURL *standardizedURL = [self standardizeURLWithoutQuery:[URL standardizedURL]];
   NSURL *standardizedRedirectURL = [self standardizeURLWithoutQuery:[redirectionURL standardizedURL]];
-
+  
+  // Normalize paths
+      NSString *normalizedPath1 = [self normalizePath:standardizedURL.path];
+      NSString *normalizedPath2 = [self normalizePath:standardizedRedirectURL.path];
+  
   return [standardizedURL.scheme caseInsensitiveCompare:standardizedRedirectURL.scheme] == NSOrderedSame
       && OIDIsEqualIncludingNil(standardizedURL.user, standardizedRedirectURL.user)
       && OIDIsEqualIncludingNil(standardizedURL.password, standardizedRedirectURL.password)
@@ -266,6 +277,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)resumeExternalUserAgentFlowWithURL:(NSURL *)URL {
   // rejects URLs that don't match redirect (these may be completely unrelated to the authorization)
+  NSLog(@"*** shouldHandleURL: %i", [self shouldHandleURL:URL]);
   if (![self shouldHandleURL:URL]) {
     return NO;
   }

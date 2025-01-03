@@ -286,7 +286,6 @@ static NSString *const kAdditionalHeadersKey = @"additionalHeaders";
     [query addParameter:kClientIDKey value:_clientID];
   }
   
-  NSLog(@"*** Query parameters _clientID: %@", _clientID);
   // Log parameters added so far
   NSLog(@"*** Query parameters: %@", query.dictionaryValue);
 

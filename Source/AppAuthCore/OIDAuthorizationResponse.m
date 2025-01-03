@@ -199,7 +199,7 @@ static NSString *const kTokenExchangeRequestException =
                 format:kTokenExchangeRequestException];
   }
   
-  NSLog(@"*** tokenExchangeRequestWithAdditionalParameters clientSecret: %@", _request.clientSecret);
+  NSLog(@"*** tokenExchangeRequestWithAdditionalParameters clientSecret: %@", _request.clientID);
   
   OIDTokenRequest *tokenRequest = [[OIDTokenRequest alloc] initWithConfiguration:_request.configuration
                                                                        grantType:OIDGrantTypeAuthorizationCode

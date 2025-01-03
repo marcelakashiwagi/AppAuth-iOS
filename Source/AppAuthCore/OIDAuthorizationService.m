@@ -99,14 +99,25 @@ NS_ASSUME_NONNULL_BEGIN
   }];
 }
 
+/*! @brief Remove quert parameters to compare URLs
+ */
++ (NSURL *)standardizeURLWithoutQuery:(NSURL *)url {
+    if (!url) {
+        return nil;
+    }
+    NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+    components.query = nil;
+    return components.URL;
+}
+
 /*! @brief Does the redirection URL equal another URL down to the path component?
     @param URL The first redirect URI to compare.
     @param redirectionURL The second redirect URI to compare.
     @return YES if the URLs match down to the path level (query params are ignored).
  */
 + (BOOL)URL:(NSURL *)URL matchesRedirectionURL:(NSURL *)redirectionURL {
-  NSURL *standardizedURL = [URL standardizedURL];
-  NSURL *standardizedRedirectURL = [redirectionURL standardizedURL];
+  NSURL *standardizedURL = [self standardizeURLWithoutQuery:[URL standardizedURL]];
+  NSURL *standardizedRedirectURL = [self standardizeURLWithoutQuery:[redirectionURL standardizedURL]];
 
   return [standardizedURL.scheme caseInsensitiveCompare:standardizedRedirectURL.scheme] == NSOrderedSame
       && OIDIsEqualIncludingNil(standardizedURL.user, standardizedRedirectURL.user)

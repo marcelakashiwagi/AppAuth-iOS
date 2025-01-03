@@ -424,6 +424,10 @@ static const NSUInteger kExpiryTimeTolerance = 60;
   if (!_refreshToken) {
     [OIDErrorUtilities raiseException:kRefreshTokenRequestException];
   }
+  
+  NSLog(@"*** tokenRefreshRequestWithAdditionalHeaders, clientSecret: %@", _lastAuthorizationResponse.request.clientSecret);
+  
+  
   return [[OIDTokenRequest alloc]
       initWithConfiguration:_lastAuthorizationResponse.request.configuration
                   grantType:OIDGrantTypeRefreshToken
@@ -446,6 +450,9 @@ static const NSUInteger kExpiryTimeTolerance = 60;
   if (!_refreshToken) {
     [OIDErrorUtilities raiseException:kRefreshTokenRequestException];
   }
+  
+  NSLog(@"*** tokenRefreshRequestWithAdditionalHeaders, clientSecret: %@", _lastAuthorizationResponse.request.clientSecret);
+  
   return [[OIDTokenRequest alloc]
       initWithConfiguration:_lastAuthorizationResponse.request.configuration
                   grantType:OIDGrantTypeRefreshToken
@@ -463,6 +470,7 @@ static const NSUInteger kExpiryTimeTolerance = 60;
 - (OIDTokenRequest *)tokenRefreshRequestWithAdditionalHeaders:
     (NSDictionary<NSString *, NSString *> *)additionalHeaders {
 
+  NSLog(@"*** tokenRefreshRequestWithAdditionalHeaders, clientSecret: %@", _lastAuthorizationResponse.request.clientSecret);
   if (!_refreshToken) {
     [OIDErrorUtilities raiseException:kRefreshTokenRequestException];
   }

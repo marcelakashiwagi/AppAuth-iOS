@@ -193,21 +193,29 @@ static NSString *const kTokenExchangeRequestException =
     (NSDictionary<NSString *, NSString *> *)additionalHeaders {
   // TODO: add a unit test to confirm exception is thrown when expected and the request is created
   //       with the correct parameters.
+  NSLog(@"*** tokenExchangeRequestWithAdditionalParameters _authorizationCode: %@", _authorizationCode);
   if (!_authorizationCode) {
     [NSException raise:kTokenExchangeRequestException
                 format:kTokenExchangeRequestException];
   }
-  return [[OIDTokenRequest alloc] initWithConfiguration:_request.configuration
-                                              grantType:OIDGrantTypeAuthorizationCode
-                                      authorizationCode:_authorizationCode
-                                            redirectURL:_request.redirectURL
-                                               clientID:_request.clientID
-                                           clientSecret:_request.clientSecret
-                                                  scope:nil
-                                           refreshToken:nil
-                                           codeVerifier:_request.codeVerifier
-                                   additionalParameters:additionalParameters
-                                      additionalHeaders:additionalHeaders];
+  
+  NSLog(@"*** tokenExchangeRequestWithAdditionalParameters clientSecret: %@", _request.clientSecret);
+  
+  OIDTokenRequest *tokenRequest = [[OIDTokenRequest alloc] initWithConfiguration:_request.configuration
+                                                                       grantType:OIDGrantTypeAuthorizationCode
+                                                               authorizationCode:_authorizationCode
+                                                                     redirectURL:_request.redirectURL
+                                                                        clientID:_request.clientID
+                                                                    clientSecret:_request.clientSecret
+                                                                           scope:nil
+                                                                    refreshToken:nil
+                                                                    codeVerifier:_request.codeVerifier
+                                                            additionalParameters:additionalParameters
+                                                               additionalHeaders:additionalHeaders];
+  
+  NSLog(@"Token Request: %@", tokenRequest);
+  
+  return tokenRequest;
 }
 
 @end

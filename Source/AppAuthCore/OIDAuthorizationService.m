@@ -460,6 +460,12 @@ NS_ASSUME_NONNULL_BEGIN
                       URLRequest.allHTTPHeaderFields,
                       [[NSString alloc] initWithData:URLRequest.HTTPBody
                                             encoding:NSUTF8StringEncoding]);
+  
+  NSLog(@"*** Token Request: %@\nHeaders:%@\nHTTPBody: %@",
+        URLRequest.URL,
+        URLRequest.allHTTPHeaderFields,
+        [[NSString alloc] initWithData:URLRequest.HTTPBody
+                              encoding:NSUTF8StringEncoding]);
 
   NSURLSession *session = [OIDURLSessionProvider session];
   [[session dataTaskWithRequest:URLRequest

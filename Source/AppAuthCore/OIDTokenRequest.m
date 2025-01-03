@@ -301,6 +301,9 @@ static NSString *const kAdditionalHeadersKey = @"additionalHeaders";
 
   OIDURLQueryComponent *bodyParameters = [self tokenRequestBody];
   NSMutableDictionary *httpHeaders = [[NSMutableDictionary alloc] init];
+  
+  NSLog(@"*** Token Endpoint: %@", tokenRequestURL.absoluteString);
+  NSLog(@"*** _clientSecret: %@", _clientSecret);
 
   if (_clientSecret) {
     // The client id and secret are encoded using the "application/x-www-form-urlencoded" 

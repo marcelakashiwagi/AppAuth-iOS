@@ -126,16 +126,16 @@ NS_ASSUME_NONNULL_BEGIN
   NSURL *standardizedURL = [self standardizeURLWithoutQuery:[URL standardizedURL]];
   NSURL *standardizedRedirectURL = [self standardizeURLWithoutQuery:[redirectionURL standardizedURL]];
   
-  // Normalize paths
-      NSString *normalizedPath1 = [self normalizePath:standardizedURL.path];
-      NSString *normalizedPath2 = [self normalizePath:standardizedRedirectURL.path];
+//  // Normalize paths
+//      NSString *normalizedPath1 = [self normalizePath:standardizedURL.path];
+//      NSString *normalizedPath2 = [self normalizePath:standardizedRedirectURL.path];
   
   return [standardizedURL.scheme caseInsensitiveCompare:standardizedRedirectURL.scheme] == NSOrderedSame
       && OIDIsEqualIncludingNil(standardizedURL.user, standardizedRedirectURL.user)
       && OIDIsEqualIncludingNil(standardizedURL.password, standardizedRedirectURL.password)
       && OIDIsEqualIncludingNil(standardizedURL.host, standardizedRedirectURL.host)
-      && OIDIsEqualIncludingNil(standardizedURL.port, standardizedRedirectURL.port)
-      && OIDIsEqualIncludingNil(standardizedURL.path, standardizedRedirectURL.path);
+  && OIDIsEqualIncludingNil(standardizedURL.port, standardizedRedirectURL.port);
+//      && OIDIsEqualIncludingNil(standardizedURL.path, standardizedRedirectURL.path);
 }
 
 - (BOOL)shouldHandleURL:(NSURL *)URL {

@@ -282,10 +282,6 @@ static NSString *const kAdditionalHeadersKey = @"additionalHeaders";
     [query addParameter:kCodeVerifierKey value:_codeVerifier];
   }
   
-  if (_clientID) {
-    [query addParameter:kClientIDKey value:_clientID];
-  }
-  
   // Log parameters added so far
   NSLog(@"*** Query parameters: %@", query.dictionaryValue);
 
